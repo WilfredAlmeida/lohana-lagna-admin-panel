@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 90px;
+        height: 34px;
+    }
+
+    .switch input {
+        display: none;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked+.slider {
+        background-color: #2ab934;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(55px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .slider:after {
+        content: 'No';
+        color: white;
+        display: block;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        font-size: 10px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked+.slider:after {
+        content: 'Yes';
+    }
+
+    /*--------- END --------*/
+</style>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lohana Lagna </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/css/vendor.bundle.base.css')}}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+</head>
+
+<body>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo"
+                        style="width: 100%; height: auto; " /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="search-field d-none d-md-block">
+                    <form class="d-flex align-items-center h-100" action="#">
+                        <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+
+                            </div>
+                            <h1>Lohana Lagna</h1>
+                        </div>
+                    </form>
+                </div>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img src="{{ url_for('static', filename='images/faces/face1.jpg') }}" alt="image">
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">
+
+                                </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}">Logout</a>
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item d-none d-lg-block full-screen-link">
+                        <a class="nav-link">
+                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-settings d-none d-lg-block">
+                        <a class="nav-link" href="#">
+                            <i class="mdi mdi-format-line-spacing"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_advert">
+                        <span class="menu-title">Advertisement</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/new_user">
+                        <span class="menu-title">New Users</span>
+                            <i class="mdi mdi-account-key menu-icon"></i>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
+
+
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                            <h1>Add advertisement image</h1>
+                            <form action="{{url_for('upload_img')}}" method="post" enctype="multipart/form-data">
+                                <input class="form-control" type="file" name="image" id="formFile">
+                                <input type="submit" class="btn btn-primary" value="Upload a Image">
+                            </form>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                            <h1>Remove advertisement image</h1>
+                            <a href="{{ url_for('remove_img') }}" class="me-2">
+                                <button class="btn btn-danger">Remove image</button>
+                            </a>
+                            </div>
+                        </div>
+                    <br>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-12 stretch-card grid-margin">
+                            <div class="card bg-gradient-danger card-img-holder text-white">
+                                Uploaded image
+                                <img src="{{img_scr}}" alt="Advertisement image">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- content-wrapper ends -->
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+    <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                 2021-2022</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> <a
+                    href="https://github.com/JaydevRupareliya/LohanaLagnaPrivacyPolicy/blob/main/README.md" target="_blank">Privacy Policy</a> </span>
+        </div>
+    </footer>
+
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ url_for('static', filename='vendors/chart.js/Chart.min.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='js/off-canvas.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/hoverable-collapse.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/misc.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/todolist.js')}}"></script>
+    <!-- End custom js for this page -->
+</body>
+
+</html>

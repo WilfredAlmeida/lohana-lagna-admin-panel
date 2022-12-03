@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lohana Lagna </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/css/vendor.bundle.base.css')}}">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+
+    <style>
+
+     .switch {
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 34px;
+    }
+
+    .switch input {
+        display: none;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked+.slider {
+        background-color: #2ab934;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(65px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .slider:after {
+        content: 'Unpaid';
+        color: white;
+        display: block;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 53%;
+        font-size: 11px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked+.slider:after {
+        content: 'Paid';
+    }
+
+    /*--------- END --------*/
+
+
+        .box {
+            float: right;
+        }
+
+
+        .pagination {
+            float: right;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        th {
+            color: #FFBA5A;
+        }
+        td {
+            color: #0f3d5c;
+        }
+        .page {
+            background-color: #009788;
+        }
+        #pagination-wrapper {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+     <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo"
+                        style="width: 100%; height: auto; " /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="search-field d-none d-md-block">
+                    <form class="d-flex align-items-center h-100" action="#">
+                        <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+
+                            </div>
+                            <h1>Lohana Lagna</h1>
+                        </div>
+                    </form>
+                </div>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img src="{{ url_for('static', filename='images/faces/face1.jpg') }}" alt="image">
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">
+
+                                </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}">Logout</a>
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item d-none d-lg-block full-screen-link">
+                        <a class="nav-link">
+                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-settings d-none d-lg-block">
+                        <a class="nav-link" href="#">
+                            <i class="mdi mdi-format-line-spacing"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_advert">
+                        <span class="menu-title">Advertisement</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
+
+
+         <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper" style="background-color: #009788;">
+                    <div class="row" id="proBanner">
+                        <div class="col-12">
+                            <span class="d-flex align-items-center purchase-popup">
+                                <input type="text" id="myInput" class="form-control me-2" onkeyup="searchFun()">
+                                <button type="submit" class="btn btn-success">Search</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-success text-white mr-2">
+                                <i class="mdi mdi-home"></i>
+                            </span> Users Data
+                        </h3>
+                        <button class="btn btn-success float-right" id="updateButton">Update data</button>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 stretch-card grid-margin">
+                            <div class="card bg-gradient-success card-img-holder text-white">
+                                <div class="sub-main-w3" style="margin: 0 17vw;">
+
+                                </div>
+
+                                <br><br>
+                                <div class="box pagination">
+                                    <div id="pagination-wrapper"></div>
+                                </div>
+
+                                <div class="table-wrapper" tabindex="0">
+
+
+                                    <table border='5'>
+                                        <thead>
+                                            <tr>
+
+                                                <th style="color: #FFBA5A;">Name</th>
+                                                <th style="color: #FFBA5A;">Martial Status</th>
+                                                <th style="color: #FFBA5A;">Family Status</th>
+                                                <th style="color: #FFBA5A;">Age</th>
+                                                <th style="color: #FFBA5A;">Mother Tounge</th>
+                                                <th style="color: #FFBA5A;">Mobile Number</th>
+                                                <th style="color: #FFBA5A;">Is Premium</th>
+                                                <th style="color: #FFBA5A;">Delete User</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+
+
+      <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                 2021-2022</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> <a
+                    href="https://github.com/JaydevRupareliya/LohanaLagnaPrivacyPolicy/blob/main/README.md" target="_blank">Privacy Policy</a> </span>
+        </div>
+    </footer>
+
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ url_for('static', filename='vendors/chart.js/Chart.min.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='js/off-canvas.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/hoverable-collapse.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/misc.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/todolist.js')}}"></script>
+
+
+    <script>
+
+
+    const searchFun = () => {
+        let filter = document.getElementById('myInput').value;
+        let tbody = document.getElementById('table-body');
+        let tr = tbody.getElementsByTagName('tr');
+
+            for(var i=0; i<tr.length; i++) {
+                let td = tr[i].getElementsByTagName('td');
+                if(td){
+                    let textvalue = td[5].textContent || td[5].innerHTML;
+                    if(textvalue.indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        $(document).ready(function(){
+          $("#updateButton").click(function(){
+            let d = new Date();
+            let datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+                d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+
+            $.get("http://backend.lohanalagna.com/api/getUpdatedUsers/?date="+datestring, function(data, status){
+                  let a = localStorage.getItem("user");
+                  console.log("data got changed")
+                   a = JSON.parse(a);
+                   a = JSON.parse(a);
+                   newarr = [];
+                   for(const i in a){
+                        for(const j in data){
+                            if(a[i].mobileNumber == data[j].mobileNumber){
+                                newarr.push(data[i]);
+                            } else {
+                                newarr.push(a[i]);
+                            }
+                        }
+                   }
+                   localStorage.setItem("user", JSON.stringify(newarr));
+            });
+          });
+        });
+
+        // dummy data
+        var a = "";
+        if({{users}} == 1){
+            console.log("i got 1");
+             a = localStorage.getItem("user");
+             a = JSON.parse(a);
+            console.log(a);
+        }else {
+            a = {{users|tojson}};
+            console.log("got data from api");
+
+            localStorage.setItem("user", JSON.stringify(a));
+            var d = new Date();
+            var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+                d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+           // localStorage.setItem("date", datestring);
+        }
+
+        //const myarr = {{users|tojson}};
+        const myarr = JSON.parse(a);
+
+        var state = {
+            'querySet': myarr,
+
+            'page': 1,
+            'rows': 300,
+            'window': 5,
+        }
+
+        buildTable()
+
+        function pagination(querySet, page, rows) {
+
+            var trimStart = (page - 1) * rows;
+            var trimEnd = trimStart + rows;
+
+            var trimmedData = querySet.slice(trimStart, trimEnd);
+
+            var pages = Math.round(querySet.length / rows);
+
+            return {
+                'querySet': trimmedData,
+                'pages': pages,
+            }
+        }
+
+        function pageButtons(pages) {
+            var wrapper = document.getElementById('pagination-wrapper')
+
+            wrapper.innerHTML = ``
+            console.log('Pages:', pages)
+
+            var maxLeft = (state.page - Math.floor(state.window / 2))
+            var maxRight = (state.page + Math.floor(state.window / 2))
+
+            if (maxLeft < 1) {
+                maxLeft = 1
+                maxRight = state.window
+            }
+
+            if (maxRight > pages) {
+                maxLeft = pages - (state.window - 1)
+
+                if (maxLeft < 1){
+                    maxLeft = 1
+                }
+                maxRight = pages
+            }
+
+
+
+            for (var page = maxLeft; page <= maxRight; page++) {
+                wrapper.innerHTML += `<button value=${page} class="page btn btn-sm btn-info">${page}</button>`
+            }
+
+            if (state.page != 1) {
+                wrapper.innerHTML = `<button value=${1} class="page btn btn-sm btn-info">&#171; First</button>` + wrapper.innerHTML
+            }
+
+            if (state.page != pages) {
+                wrapper.innerHTML += `<button value=${pages} class="page btn btn-sm btn-info">Last &#187;</button>`
+            }
+
+            $('.page').on('click', function() {
+                $('#table-body').empty()
+
+                state.page = Number($(this).val())
+
+                buildTable()
+            })
+
+        }
+
+
+        function buildTable() {
+            var table = $('#table-body')
+
+            var data = pagination(state.querySet, state.page, state.rows)
+            var myList = data.querySet
+
+            for (var i = 1 in myList) {
+                //Keep in mind we are using "Template Litterals to create rows"
+                var row = `<tr>
+                          <td>${myList[i].name}</td>
+                          <td>${myList[i].martialStatus}</td>
+                          <td>${myList[i].familyStatus}</td>
+                          <td>${myList[i].age}</td>
+                          <td>${myList[i].motherTounge}</td>
+                          <td>${myList[i].mobileNumber}</td>
+                          <td> <form action="/update" method="post">
+                                    <input type="hidden" name="mobile" value=${myList[i].mobileNumber}>
+                                <label class="switch">
+                                     ${myList[i].isPremium ?
+                                        `<input type="checkbox" id="togBtn1" name="premium" value="" checked onChange="this.form.submit()">`
+                                         :
+                                        `<input type="checkbox" id="togBtn2" name="premium" value="Yes" onChange="this.form.submit()">`
+                                        }
+
+                                    <div class="slider round"></div>
+                                </label>
+                                </form>
+                          </td>
+                          <td>
+                                <a href="/delete/${myList[i].mobileNumber}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
+                          `
+                table.append(row)
+            }
+
+            pageButtons(data.pages)
+        }
+
+    </script>
+
+</body>
+
+</html>

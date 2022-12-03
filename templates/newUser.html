@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lohana Lagna </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/css/vendor.bundle.base.css')}}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+
+    <!--    datatable css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 34px;
+    }
+
+    .switch input {
+        display: none;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ca2222;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked+.slider {
+        background-color: #2ab934;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(65px);
+    }
+
+    /*------ ADDED CSS ---------*/
+    .slider:after {
+        content: 'Unpaid';
+        color: white;
+        display: block;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 53%;
+        font-size: 11px;
+        font-family: Verdana, sans-serif;
+    }
+
+    input:checked+.slider:after {
+        content: 'Paid';
+    }
+
+    /*--------- END --------*/
+    th {
+        color: #FFBA5A;
+    }
+    .dataTables_filter {
+        display: none;
+     }
+     .loader,
+        .loader:after {
+            border-radius: 50%;
+            width: 10em;
+            height: 10em;
+        }
+        .loader {
+            margin: 60px auto;
+            font-size: 10px;
+            position: relative;
+            text-indent: -9999em;
+            border-top: 1.1em solid rgba(19, 183, 239, 0.2);
+            border-right: 1.1em solid rgba(19, 183, 239, 0.2);
+            border-bottom: 1.1em solid rgba(19, 183, 239, 0.2);
+            border-left: 1.1em solid #ffffff;
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: load8 1.1s infinite linear;
+            animation: load8 1.1s infinite linear;
+        }
+        @-webkit-keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        #loadingDiv {
+            position:absolute;;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background-color:#fff;
+            z-index: 9999;
+        }
+</style>
+
+</head>
+
+<body>
+
+<script>
+    $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+        $(window).on('load', function(){
+          setTimeout(removeLoader, 1000); //wait for page load PLUS two seconds.
+        });
+        function removeLoader(){
+            $( "#loadingDiv" ).fadeOut(500, function() {
+              // fadeOut complete. Remove the loading div
+              $( "#loadingDiv" ).remove(); //makes page more lightweight
+          });
+        }
+</script>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo"
+                        style="width: 100%; height: auto; " /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="search-field d-none d-md-block">
+                    <form class="d-flex align-items-center h-100" action="#">
+                        <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+
+                            </div>
+                            <h1>Lohana Lagna</h1>
+                        </div>
+                    </form>
+                </div>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img src="{{ url_for('static', filename='images/faces/face1.jpg') }}" alt="image">
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">
+
+                                </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}" id="logout">Logout</a>
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item d-none d-lg-block full-screen-link">
+                        <a class="nav-link">
+                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-settings d-none d-lg-block">
+                        <a class="nav-link" href="#">
+                            <i class="mdi mdi-format-line-spacing"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_advert">
+                        <span class="menu-title">Advertisement</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/new_user">
+                        <span class="menu-title">New Users</span>
+                            <i class="mdi mdi-account-key menu-icon"></i>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
+
+
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper" style="background-color: #009788;">
+                    <div class="row" id="proBanner">
+                        <div class="col-12">
+                            <span class="d-flex align-items-center purchase-popup">
+                                <input type="text" id="myInput" class="form-control me-2">
+                                <button type="submit" class="btn btn-success" id="mySearchableButton">Search</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-success text-white mr-2">
+                                <i class="mdi mdi-home"></i>
+                            </span> Users Data
+                        </h3>
+                        <button class="btn btn-success float-right" id="updateButton">Update data</button>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 stretch-card grid-margin">
+                            <div class="card bg-gradient-success card-img-holder text-white">
+                                <div class="sub-main-w3" style="margin: 0 17vw;">
+
+                                </div>
+
+                                <br><br>
+
+                                <div class="table-wrapper" tabindex="0">
+                                    <table border='5' id="table_id">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Name</th>
+                                                <th>Martial Status</th>
+                                                <th>Family Status</th>
+                                                <th>Age</th>
+                                                <th>Mother Tounge</th>
+                                                <th>Mobile Number</th>
+                                                <th>Is Premium</th>
+                                                <th>Delete User</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+
+                                        <script>
+                                        var value = undefined;
+                                        if(localStorage.getItem("user") == null){
+                                            console.log("not get userdata from local storage");
+                                            $.ajax('https://backend.lohanalagna.com/api/getAllUsers',   // request url
+                                                {
+                                                    success: function (data, status, xhr) {// success callback function
+                                                        console.log(data);
+                                                        value = data;
+                                                        console.log("type-of", typeof(data));
+                                                        localStorage.setItem("user", JSON.stringify(data));
+                                                        location.reload();
+                                                }
+                                            });
+
+                                        } else {
+                                            console.log("get userdata from local storage");
+                                            let a = localStorage.getItem("user");
+                                            console.log(typeof(a));
+                                             a = JSON.parse(a);
+                                            console.log(typeof(a));
+                                            //a = JSON.parse(a);
+                                            //console.log(typeof(a));
+                                            value = a;
+                                        }
+                                            var myarr = value;
+                                            console.log(typeof(myarr))
+
+                                        </script>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+            <!-- content-wrapper ends -->
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+    <!-- partial:partials/_footer.html -->
+     <footer class="footer">
+        <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                 2021-2022</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> <a
+                    href="https://github.com/JaydevRupareliya/LohanaLagnaPrivacyPolicy/blob/main/README.md" target="_blank">Privacy Policy</a> </span>
+        </div>
+    </footer>
+
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ url_for('static', filename='vendors/chart.js/Chart.min.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='js/off-canvas.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/hoverable-collapse.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/misc.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/todolist.js')}}"></script>
+    <!-- End custom js for this page -->
+
+    <!-- DATA-table js cdn   -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+    <script>
+
+        $(document).ready( function () {
+            var table = $('#table_id').DataTable({
+                            pageLength : 100,
+                            lengthMenu: [[100, 200, 300, -1], [100, 200, 300, 'All']]
+                        } );
+
+             $('#myInput').keyup(function(){
+                table.search($(this).val()).draw();
+              } );
+        } );
+
+
+
+
+        $("#updateButton").click(function () {
+            console.log("button click")
+            var d = new Date();
+            var datestring = ("0" + d.getFullYear()).slice(-4) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+                d.getDate() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+            console.log(datestring);
+            var api_url = "http://backend.lohanalagna.com/api/getUpdatedUsers/?date=" + datestring;
+            $.ajax(api_url,   // request url
+                {
+                    success: function (data, status, xhr) { // success callback function
+                        console.log(data);
+                        console.log("updating data");
+                        let a = JSON.parse(localStorage.getItem("user"));
+                        // a = JSON.parse(a);
+                        console.log("a", typeof (a));
+                        let newobj = {};
+                        for (const i in a) {
+                            newobj[a[i].mobileNumber] = a[i];
+                        }
+                        for (const j in data) {
+                            newobj[data[j].mobileNumber] = data[j];
+                        }
+                        let newarr = Object.values(newobj);
+                        localStorage.setItem("user", JSON.stringify(newarr));
+                        location.reload();
+                    }
+
+                });
+        });
+
+
+        $(".togBtn1").click(function(){
+                var mob_pre = $(this).closest('tr').children('td.mob').text();
+                let a = JSON.parse(localStorage.getItem("user"));
+                console.log("a", typeof(a));
+                let newobj = {};
+                for(const i in a){
+                    newobj[a[i].mobileNumber] = a[i];
+                }
+                newobj[mob_pre].isPremium = !newobj[mob_pre].isPremium
+                let newarr = Object.values(newobj);
+                console.log("newarr", newarr);
+                localStorage.setItem("user", JSON.stringify(newarr));
+                location.reload();
+
+         });
+
+
+    </script>
+</body>
+
+</html>

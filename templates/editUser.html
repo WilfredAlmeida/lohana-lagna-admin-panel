@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lohana Lagna </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/css/vendor.bundle.base.css')}}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.jpg') }}" />
+
+    <style>
+        label {
+            color: #009788;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{url_for('home')}}"><img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="logo"
+                        style="width: 100%; height: auto; " /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="search-field d-none d-md-block">
+                    <form class="d-flex align-items-center h-100" action="#">
+                        <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+
+                            </div>
+                            <h1>Lohana Lagna</h1>
+                        </div>
+                    </form>
+                </div>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img src="{{ url_for('static', filename='images/faces/face1.jpg') }}" alt="image">
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">
+
+                                </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}">Logout</a>
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item d-none d-lg-block full-screen-link">
+                        <a class="nav-link">
+                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-settings d-none d-lg-block">
+                        <a class="nav-link" href="#">
+                            <i class="mdi mdi-format-line-spacing"></i>
+                        </a>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add_advert">
+                        <span class="menu-title">Advertisement</span>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/new_user">
+                        <span class="menu-title">New Users</span>
+                            <i class="mdi mdi-account-key menu-icon"></i>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
+
+
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row" id="proBanner">
+<!--                        <div class="col-12">-->
+<!--                            <span class="d-flex align-items-center purchase-popup">-->
+<!--                                <p>Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>-->
+
+<!--                            </span>-->
+<!--                        </div>-->
+                    </div>
+
+                    <form method="post">
+                        <div>
+                            <label>Name</label><br>
+                            <input type="text" name="name" value="{{user.name}}" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Mobile Number</label>
+                            <input type="text" name="particulars" value="{{user.mobileNumber}}" required="" class="form-control input-lg">
+                        </div>
+
+                        <div>
+                            <label> Date of Birth</label>
+                            <input type="text" name="date" value="{{user.dateOfBirth}}" required class="form-control input-lg">
+                        </div>
+
+
+                        <div>
+                            <label>Living With Parents</label>
+                            <input type="text" name="lot" value="{{user.livingWithParents}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Profile Created for</label>
+                            <input type="text" name="entry" value="{{user.profileCreatedFor}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Horoscope Must</label>
+                            <input type="text" name="investment" value="{{user.horoscopeMust}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Manglik</label>
+                            <input type="text" name="si" value="{{user.manglik}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Age</label>
+                            <input type="number" name="target1" value="{{user.age}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Occupation</label>
+                            <input type="text" name="target2" value="{{user.occupation}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Place of birth</label>
+                            <input type="text" name="booked" value="{{user.placeOfBirth}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>livingIn</label>
+                            <input type="text" name="total_points" value="{{user.livingIn}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <input type="email" name="amount" value="{{user.email}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Image URL</label>
+                            <input type="text" name="total_points" value="{{user.imageUrl}}" required="" class="form-control input-lg">
+                        </div>
+
+                        <div>
+                            <label>Employed In</label>
+                            <input type="text" name="total_points" value="{{user.employedIn}}" required="" class="form-control input-lg">
+                        </div>
+
+                        <div>
+                            <label>Expectation From Partner</label>
+                            <input type="text" name="total_points" value="{{user.expectationFromPartner}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Height</label>
+                            <input type="text" name="total_points" value="{{user.height}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Martial Status</label>
+                            <input type="text" name="total_points" value="{{user.martialStatus}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Mother Tounge</label>
+                            <input type="text" name="total_points" value="{{user.motherTounge}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label> Gender</label>
+                            <input type="text" name="total_points" value="{{user.gender}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Annual Income</label>
+                            <input type="text" name="total_points" value="{{user.annualIncome}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Highest Qualification</label>
+                            <input type="text" name="total_points" value="{{user.highestQualification}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Religion Subcaste</label>
+                            <input type="text" name="total_points" value="{{user.religionSubcaste}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>time Of Birth</label>
+                            <input type="text" name="total_points" value="{{user.timeOfBirth}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Family Values</label>
+                            <input type="text" name="total_points" value="{{user.familyValues}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>about Me</label>
+                            <input type="text" name="total_points" value="{{user.aboutMe}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Family Status</label>
+                            <input type="text" name="total_points" value="{{user.familyStatus}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>is Premium</label>
+                            <input type="text" name="total_points" value="{{user.isPremium}}" required="" class="form-control input-lg">
+                        </div>
+                        <div>
+                            <label>Family Type</label>
+                            <input type="text" name="total_points" value="{{user.familyType}}" required="" class="form-control input-lg">
+                        </div>
+
+<!--                        <button type="submit" name="submit" class="btn btn-gradient-primary mr-2">Submit</button>-->
+
+                    </form>
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+            <!-- content-wrapper ends -->
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+    <!-- partial:partials/_footer.html -->
+    <footer class="footer">
+        <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                 2021-2022</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> <a
+                    href="https://github.com/JaydevRupareliya/LohanaLagnaPrivacyPolicy/blob/main/README.md" target="_blank">Privacy Policy</a> </span>
+        </div>
+    </footer>
+
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ url_for('static', filename='vendors/chart.js/Chart.min.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='js/off-canvas.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/hoverable-collapse.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/misc.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/todolist.js')}}"></script>
+    <!-- End custom js for this page -->
+</body>
+
+</html>
